@@ -1,0 +1,25 @@
+.form-control {
+  background-color: #363636;
+  border: none;
+  color: white;
+}
+
+.form-control::placeholder {
+  color: white;
+}
+.input-group-text {
+  border: none !important;
+}
+
+.bg-dark {
+  background-color: #282828;
+}
+
+i {
+  padding: 10px;
+  cursor: pointer;
+}
+i:hover {
+  background-color: rgba(255, 255, 255, 0.548);
+  border-radius: 5px;
+}
