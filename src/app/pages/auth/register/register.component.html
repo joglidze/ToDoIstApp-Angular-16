@@ -1,0 +1,83 @@
+<div class="container">
+  <form class="mt-5" [formGroup]="form" (submit)="submit()">
+    <div class="d-flex gap-4">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="exampleInputEmail1"
+          formControlName="name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="exampleInputEmail1"
+          formControlName="lastName"
+        />
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        formControlName="email"
+      />
+      <div id="emailHelp" class="form-text">
+        We'll never share your email with anyone else.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label
+        for="exampleInputPassword1"
+        class="form-label"
+        [ngClass]="{
+          'text-danger':
+            form.value.password.length < 6 && form.value.password.length > 0,
+          valid: form.value.password.length >= 6
+        }"
+        >Password</label
+      >
+      <input
+        type="password"
+        class="form-control ng-invalid"
+        id="exampleInputPassword1"
+        formControlName="password"
+        [ngClass]="{
+          error:
+            form.value.password.length < 6 && form.value.password.length > 0,
+          valid: form.value.password.length >= 6
+        }"
+      />
+      <div
+        id="emailHelp"
+        class="form-text"
+        *ngIf="form.value.password.length < 6 && form.value.password.length > 0"
+      >
+        <div id="passwordHelpBlock" class="form-text w-75 text-danger">
+          Your password must be 6-20 characters long
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="
+        !form.value.name ||
+        !form.value.email ||
+        !form.value.lastName ||
+       
+        form.value.password.length < 6
+      "
+    >
+      Register
+    </button>
+  </form>
+</div>
