@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -33,11 +34,14 @@ export class LoginComponent {
   submit() {
     this.authService
       .loginIn(this.form.value.email, this.form.value.password)
+      .pipe(
+        tap((res) => {
+          localStorage.setItem('user', JSON.stringify(res));
+        })
+      )
       .subscribe(
         (res) => {
           console.log(res);
-
-          localStorage.setItem('user', JSON.stringify(res));
           this.form.reset();
         },
         (error) => {

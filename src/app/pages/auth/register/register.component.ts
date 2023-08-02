@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -36,11 +37,15 @@ export class RegisterComponent {
     const name = this.form.value.name + ' ' + this.form.value.lastName;
     this.authService
       .signUp(this.form.value.email, this.form.value.password, name)
+      .pipe(
+        tap((res) => {
+          localStorage.setItem('user', JSON.stringify(res));
+        })
+      )
       .subscribe(
         (res) => {
           console.log(res);
 
-          localStorage.setItem('user', JSON.stringify(res));
           this.form.reset();
         },
         (error) => {
