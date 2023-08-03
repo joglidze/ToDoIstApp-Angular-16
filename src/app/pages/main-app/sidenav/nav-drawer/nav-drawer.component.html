@@ -8,23 +8,48 @@
       <i class="fa-solid fa-inbox me-2" style="color: #297eff"></i
       ><span>Inbox</span>
     </a>
-    <a href="#" class="list-group-item list-group-item-action py-2 ripple bg-transparent text-white"
+    <a
+      href="#"
+      class="list-group-item list-group-item-action py-2 ripple bg-transparent text-white"
       ><i class="fa-solid fa-calendar-day me-2" style="color: #1c8c3a"></i>
       <span>Today</span>
     </a>
-    <a  class="list-group-item list-group-item-action py-2 ripple bg-transparent text-white"
+    <a
+      class="list-group-item list-group-item-action py-2 ripple bg-transparent text-white"
       ><i class="fa-regular fa-clock me-2" style="color: #a970ff"></i
       ><span>Upcoming</span></a
     >
-    <a  class="list-group-item list-group-item-action py-2 ripple bg-transparent text-white"
-      ><i class="fas fa-chart-line fa-fw me-2 " style="color: #c77100"></i
+    <a
+      class="list-group-item list-group-item-action py-2 ripple bg-transparent text-white"
+      ><i class="fas fa-chart-line fa-fw me-2" style="color: #c77100"></i
       ><span>Fillters & Labels</span></a
     >
   </div>
   <div class="mx-2 my-1">
-    <h4>Projects</h4>
+    <mat-accordion>
+      <mat-expansion-panel
+        class="bg-transparent text-white"
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+      >
+        <mat-expansion-panel-header class="bg-hover">
+          <mat-panel-title class="w-100 text-white d-flex justify-content-between ">
+            <div>Projects</div>
+            <div class="ms-auto">
+              <span>
+                <i
+                  _ngcontent-ng-c3924948544=""
+                  class="fa-regular fa-plus"
+                  style="color: #ffffff"
+                ></i>
+              </span>
+            </div>
+          </mat-panel-title>
+       
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
-  <div>
-
-  </div>
+  <div></div>
 </div>
