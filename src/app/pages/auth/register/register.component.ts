@@ -10,6 +10,7 @@ import {
 import { AuthService } from 'src/app/core/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,8 @@ import { tap } from 'rxjs';
 export class RegisterComponent {
   constructor(
     private authService: AuthService,
-    private _snackbar: MatSnackBar
+    private _snackbar: MatSnackBar,
+    private router: Router
   ) {}
   form: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -35,17 +37,22 @@ export class RegisterComponent {
 
   submit() {
     const name = this.form.value.name + ' ' + this.form.value.lastName;
+    
     this.authService
       .signUp(this.form.value.email, this.form.value.password, name)
       .pipe(
         tap((res) => {
           localStorage.setItem('user', JSON.stringify(res));
+          localStorage.setItem(
+            'refreshtoken',
+            JSON.stringify(res.refreshToken)
+          );
         })
       )
       .subscribe(
         (res) => {
           console.log(res);
-
+          this.router.navigateByUrl('app');
           this.form.reset();
         },
         (error) => {

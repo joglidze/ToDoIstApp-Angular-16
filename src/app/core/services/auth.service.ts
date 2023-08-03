@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { SignUp } from '../interfaces/signup';
-import { LoginIn} from '../interfaces/logIn';
+import { LoginIn } from '../interfaces/logIn';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
-  signUp(email: string, password: string, name: string):Observable<SignUp> {
+  signUp(email: string, password: string, name: string): Observable<SignUp> {
     return this.http.post<SignUp>(environment.apiUrl, {
       email: email,
       password: password,
@@ -19,7 +19,7 @@ export class AuthService {
     });
   }
 
-  loginIn(email: string, password: string):Observable<LoginIn> {
+  loginIn(email: string, password: string): Observable<LoginIn> {
     return this.http.post<LoginIn>(
       ' https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC0K4EXj_VH-jRGO-M7JE--U6nSA2yBRwc',
       {
@@ -28,5 +28,9 @@ export class AuthService {
         returnSecureToken: true,
       }
     );
+  }
+  
+  logOut(){
+    return localStorage.clear()
   }
 }

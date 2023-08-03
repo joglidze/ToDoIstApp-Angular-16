@@ -1,6 +1,9 @@
 export interface SignUp {
-  email: string;
-  password: string;
   displayName: string;
-  returnSecureToken: boolean;
+  email: string;
+  expiresIn: string;
+  idToken: string;
+  kind: string;
+  localId: string;
+  refreshToken: string;
 }

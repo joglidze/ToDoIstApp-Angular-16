@@ -22,14 +22,14 @@
     <div
       id="passwordHelpBlock"
       class="text-danger" style="margin-top: -10px;"
-      *ngIf="form.value.password.length < 6"
+      *ngIf="form.value.password?.length < 6"
     >
       Your password must be 6-20 characters long
     </div>
     <button
       type="submit"
       class="btn btn-primary mt-2"
-      [disabled]="form.status !== 'VALID' || form.value.password.length < 6"
+      [disabled]="form.status !== 'VALID' || form.value.password?.length < 6"
     >
       Submit
     </button>
