@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { tap } from 'rxjs';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,8 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private _snackbar: MatSnackBar
+    private _snackbar: MatSnackBar,
+    private router: Router
   ) {}
 
   submit() {
@@ -37,11 +39,16 @@ export class LoginComponent {
       .pipe(
         tap((res) => {
           localStorage.setItem('user', JSON.stringify(res));
+          localStorage.setItem(
+            'refreshToken',
+            JSON.stringify(res.refreshToken)
+          );
         })
       )
       .subscribe(
         (res) => {
           console.log(res);
+          this.router.navigateByUrl('app');
           this.form.reset();
         },
         (error) => {
@@ -53,5 +60,6 @@ export class LoginComponent {
           console.log(error.error.error);
         }
       );
+    
   }
 }

@@ -1,5 +1,10 @@
 export interface LoginIn {
+  displayName: string;
   email: string;
-  password: string;
-  returnSecureToken: boolean;
+  expiresIn: string;
+  idToken: string;
+  kind: string;
+  localId: string;
+  refreshToken: string;
+  registered: boolean;
 }

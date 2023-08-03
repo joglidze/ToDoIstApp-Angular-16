@@ -39,8 +39,8 @@
         class="form-label"
         [ngClass]="{
           'text-danger':
-            form.value.password.length < 6 && form.value.password.length > 0,
-          valid: form.value.password.length >= 6
+            form.value.password?.length < 6 && form.value.password?.length > 0,
+          valid: form.value.password?.length >= 6
         }"
         >Password</label
       >
@@ -51,14 +51,16 @@
         formControlName="password"
         [ngClass]="{
           error:
-            form.value.password.length < 6 && form.value.password.length > 0,
-          valid: form.value.password.length >= 6
+            form.value.password?.length < 6 && form.value.password?.length > 0,
+          valid: form.value.password?.length >= 6
         }"
       />
       <div
         id="emailHelp"
         class="form-text"
-        *ngIf="form.value.password.length < 6 && form.value.password.length > 0"
+        *ngIf="
+          form.value.password?.length < 6 && form.value.password?.length > 0
+        "
       >
         <div id="passwordHelpBlock" class="form-text w-75 text-danger">
           Your password must be 6-20 characters long
@@ -73,8 +75,7 @@
         !form.value.name ||
         !form.value.email ||
         !form.value.lastName ||
-       
-        form.value.password.length < 6
+        form.value.password?.length < 6
       "
     >
       Register

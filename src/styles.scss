@@ -23,3 +23,10 @@ body {
 .ng-invalid:not(form) {
   border-left: 5px solid #a94442; /* red */
 }
+
+.bg-dark {
+  background-color: #282828 !important;
+}
+.list-group-item {
+  border: none;
+}
