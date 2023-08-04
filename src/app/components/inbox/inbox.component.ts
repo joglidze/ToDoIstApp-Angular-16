@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CreateTaskComponent } from '../create-task/create-task.component';
 
 @Component({
   selector: 'app-inbox',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,CreateTaskComponent],
   templateUrl: './inbox.component.html',
   styleUrls: ['./inbox.component.scss']
 })

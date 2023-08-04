@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthComponent } from './pages/auth/auth.component';
 import { auth, authGuard } from './core/guard/auth.guard';
-import { InboxComponent } from './pages/main-app/inbox/inbox.component';
+import { InboxComponent } from './components/inbox/inbox.component';
 
 export const routes: Routes = [
   {
