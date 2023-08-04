@@ -1,15 +1,14 @@
 <div class="position-sticky">
   <div class="list-group list-group-flush mx-3 mt-4">
     <a
-      href="#"
       class="list-group-item list-group-item-action py-2 ripple bg-transparent text-white"
       aria-current="true"
+      routerLink="inbox"
     >
       <i class="fa-solid fa-inbox me-2" style="color: #297eff"></i
       ><span>Inbox</span>
     </a>
     <a
-      href="#"
       class="list-group-item list-group-item-action py-2 ripple bg-transparent text-white"
       ><i class="fa-solid fa-calendar-day me-2" style="color: #1c8c3a"></i>
       <span>Today</span>
@@ -33,7 +32,9 @@
         (closed)="panelOpenState = false"
       >
         <mat-expansion-panel-header class="bg-hover">
-          <mat-panel-title class="w-100 text-white d-flex justify-content-between ">
+          <mat-panel-title
+            class="w-100 text-white d-flex justify-content-between"
+          >
             <div>Projects</div>
             <div class="ms-auto">
               <span>
@@ -45,7 +46,6 @@
               </span>
             </div>
           </mat-panel-title>
-       
         </mat-expansion-panel-header>
         <p>I'm visible because I am open</p>
       </mat-expansion-panel>
