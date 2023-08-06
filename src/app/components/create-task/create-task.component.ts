@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   MatDatepickerInputEvent,
@@ -28,8 +28,12 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 })
 export class CreateTaskComponent {
   events: string[] = [];
-
+  @Output() openTask:any = new EventEmitter<boolean>();
+  taskBoolean: boolean = false;
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
+  }
+  closeTask() {
+    this.openTask.emit(this.taskBoolean)
   }
 }
