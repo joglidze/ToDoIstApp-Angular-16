@@ -2,7 +2,7 @@
   <div class="row p-5 w-75 m-auto">
     <div class="text-white">
       <div>
-        <h1>Inbox</h1>
+        <h1>Today <span class="text-secondary fs-6">{{date | date}}</span> </h1>
         <hr />
       </div>
     </div>
@@ -12,32 +12,32 @@
         <div>
           <button
             class="task-button text-secondary"
-            *ngIf="!taskTrigger"
-            (click)="taskTrigger = !taskTrigger"
+            *ngIf="!taskBoolean"
+            (click)="taskBoolean = !taskBoolean"
           >
             <i class="fa-regular fa-plus p-1" style="color: #de4c4a"></i>
             Add task
           </button>
-          <div *ngIf="taskTrigger">
+          <div *ngIf="taskBoolean">
             <app-create-task (openTask)="closeTask($event)"></app-create-task>
           </div>
         </div>
-        <div class="d-grid justify-content-center text-center text-white" *ngIf="!taskTrigger">
-          <div >
+        <div class="d-grid justify-content-center text-center text-white" *ngIf="!taskBoolean">
+          <div>
             <img
-              src="https://todoist.b-cdn.net/assets/images/f8efe98622c6a4dec60121bcf5a240b5.png"
+              src="https://todoist.b-cdn.net/assets/images/eca835cc5e863b41cc2fe9f480b36fae.png"
               srcset="
-                https://todoist.b-cdn.net/assets/images/a1875323597283b7b63c3dcaff6429ca.png 2x,
-                https://todoist.b-cdn.net/assets/images/ca29ff0c211ae042652e4d84a8370c4b.png 3x
+                https://todoist.b-cdn.net/assets/images/65b5fe1fe17d640040f6c0888bddeb53.png 2x,
+                https://todoist.b-cdn.net/assets/images/8d1e3dd52ac2ee793bd4ce434f31a641.png 3x
               "
             />
           </div>
           <div>
-            <div class="m-2">Your peace of mind is priceless</div>
+            <div class="m-2">Have a marvelous day off, luca!</div>
           </div>
           <div class="text-secondary">
             <div>
-              Well done, All your team's tasks are organized in the right place.
+              Schedule days off in the Productivity tab of your Settings menu.
             </div>
           </div>
         </div>
