@@ -9,18 +9,12 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { LoginIn } from './core/interfaces/logIn';
-import { ApiKeyInterceptor } from './core/interceptor/auth.interceptor';
-
+import { DatabaseInterceptor } from './core/interceptor/database.interceptor';
 
 let user: any = localStorage.getItem('user');
 
 let token: any = JSON.parse(user);
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideRouter(routes),
-    provideAnimations(),
-    importProvidersFrom(HttpClientModule),
-    // provideHttpClient(withInterceptors([ApiKeyInterceptor])),
-  ],
+  providers: [provideRouter(routes), provideAnimations()],
 };

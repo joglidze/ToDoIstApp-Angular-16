@@ -1,20 +1,22 @@
 <div class="container border border-opacity-50 border-white p-3 rounded-3">
-  <form class="row">
+  <form class="row" [formGroup]="form" (submit)="submit()">
     <div>
       <div>
         <input
           type="text"
           placeholder="Task name"
           class="w-100 bg-transparent border-none text-white"
+          formControlName="taskName"
         />
         <input
           type="text"
           placeholder="description"
           class="w-100 bg-transparent p-1 text-white mt-2"
+          formControlName="taskDescripiton"
         />
       </div>
       <div>
-        <form class="w-100 mt-4">
+        <div class="w-100 mt-4">
           <div class="d-flex align-items-center">
             <div
               class="bg-transparent px-3 rounded-3 border border-opacity-50 d-flex align-items-center"
@@ -31,6 +33,7 @@
                 [matDatepicker]="picker"
                 matIconSuffix
                 placeholder="Pick a date"
+                formControlName="taskDate"
               />
 
               <mat-datepicker #picker></mat-datepicker>
@@ -43,6 +46,7 @@
               <select
                 class="form-select bg-transparent text-white border-0"
                 aria-label="Default select example"
+                formControlName="taskPriority"
               >
                 <option selected class="text-dark">Priority</option>
                 <option value="1" class="text-dark">Priority 1</option>
@@ -62,6 +66,7 @@
                 Cancel
               </button>
               <button
+                type="submit"
                 style="background-color: #de4c4a"
                 class="btn p-2 text-white"
               >
@@ -69,7 +74,7 @@
               </button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
     <div></div>
