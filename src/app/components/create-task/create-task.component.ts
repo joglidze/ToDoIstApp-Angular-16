@@ -9,8 +9,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 
-import { FormsModule } from '@angular/forms';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+
+import { LocalstorageService } from 'src/app/facade/localstorage.service';
+import { TaskService } from 'src/app/core/services/task.service';
 @Component({
   selector: 'app-create-task',
   standalone: true,
@@ -20,6 +28,7 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
     FormsModule,
     MatInputModule,
     MatNativeDateModule,
+    ReactiveFormsModule,
     NgFor,
     MatFormFieldModule,
   ],
@@ -28,12 +37,32 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 })
 export class CreateTaskComponent {
   events: string[] = [];
-  @Output() openTask:any = new EventEmitter<boolean>();
+  form: FormGroup = new FormGroup({
+    taskName: new FormControl('', Validators.required),
+    taskDescripiton: new FormControl('', Validators.required),
+    taskDate: new FormControl('', Validators.required),
+    taskPriority: new FormControl('', Validators.required),
+  });
+
+  @Output() openTask: any = new EventEmitter<boolean>();
   taskBoolean: boolean = false;
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
   closeTask() {
-    this.openTask.emit(this.taskBoolean)
+    this.openTask.emit(this.taskBoolean);
+  }
+  constructor(
+    private taskService: TaskService,
+    private localService: LocalstorageService
+  ) {}
+
+  submit() {
+    this.taskService
+      .post(`${this.localService.localUser()}/inbox.json`, this.form.value)
+      .subscribe((res) => {
+        console.log(res);
+      });
+    console.log(this.localService.localUser);
   }
 }

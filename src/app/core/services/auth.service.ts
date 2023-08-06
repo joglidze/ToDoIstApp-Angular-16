@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   constructor(private http: HttpClient) {}
   signUp(email: string, password: string, name: string): Observable<SignUp> {
-    return this.http.post<SignUp>(environment.apiUrl, {
+    return this.http.post<SignUp>(environment.apiSignUp + environment.apiKey, {
       email: email,
       password: password,
       displayName: name,
@@ -20,17 +20,14 @@ export class AuthService {
   }
 
   loginIn(email: string, password: string): Observable<LoginIn> {
-    return this.http.post<LoginIn>(
-      ' https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyC0K4EXj_VH-jRGO-M7JE--U6nSA2yBRwc',
-      {
-        email: email,
-        password: password,
-        returnSecureToken: true,
-      }
-    );
+    return this.http.post<LoginIn>(environment.apiSignIn + environment.apiKey, {
+      email: email,
+      password: password,
+      returnSecureToken: true,
+    });
   }
-  
-  logOut(){
-    return localStorage.clear()
+
+  logOut() {
+    return localStorage.clear();
   }
 }
