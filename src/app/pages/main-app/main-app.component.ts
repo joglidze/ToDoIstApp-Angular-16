@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
   selector: 'app-main-app',
