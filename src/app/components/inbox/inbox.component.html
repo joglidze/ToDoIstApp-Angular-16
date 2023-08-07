@@ -10,6 +10,9 @@
     <div>
       <div>
         <div>
+          <div *ngFor="let tasks of taskArray" class="my-2">
+            <app-task [task]="tasks"  />
+          </div>
           <button
             class="task-button text-secondary"
             *ngIf="!taskTrigger"
@@ -22,8 +25,11 @@
             <app-create-task (openTask)="closeTask($event)"></app-create-task>
           </div>
         </div>
-        <div class="d-grid justify-content-center text-center text-white" *ngIf="!taskTrigger">
-          <div >
+        <div
+          class="d-grid justify-content-center text-center text-white"
+          *ngIf="!taskTrigger"
+        >
+          <div>
             <img
               src="https://todoist.b-cdn.net/assets/images/f8efe98622c6a4dec60121bcf5a240b5.png"
               srcset="
