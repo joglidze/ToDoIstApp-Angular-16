@@ -30,7 +30,9 @@ body {
 .list-group-item {
   border: none;
 }
-
+.bg-dark-2{
+  background: #1f1f1f !important;
+}
 .mat-expansion-indicator::after {
   color: white !important;
 }

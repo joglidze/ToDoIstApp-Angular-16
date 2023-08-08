@@ -4,7 +4,7 @@ import { CreateTaskComponent } from '../create-task/create-task.component';
 import { TaskService } from 'src/app/core/services/task.service';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
 import { TaskComponent } from '../task/task.component';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 
 @Component({
   selector: 'app-inbox',
@@ -15,7 +15,7 @@ import { map } from 'rxjs';
 })
 export class InboxComponent implements OnInit {
   taskTrigger: boolean = false;
-  taskArray: any = [];
+  taskArray: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
   constructor(
     private taskService: TaskService,
@@ -27,15 +27,17 @@ export class InboxComponent implements OnInit {
   getTasks() {
     this.taskService
       .get(`${this.localService.localUser()}/inbox.json`)
-      .pipe(map((res: any) => Object.values(res)))
+      .pipe(map((res: any) => Object.entries(res)))
       .subscribe((res: any) => {
         console.log(res);
-        this.taskArray = [...res];
+        this.taskArray.next([...res]);
         console.log(this.taskArray);
       });
   }
 
   closeTask(test: any) {
     this.taskTrigger = test;
+    console.log(test);
+    this.getTasks();
   }
 }

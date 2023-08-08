@@ -34,7 +34,6 @@ export function DatabaseInterceptor(
   let token: any = JSON.parse(user)?.idToken;
 
   if (token) {
-    console.log(token);
     return next(
       req.clone({
         setParams: {
