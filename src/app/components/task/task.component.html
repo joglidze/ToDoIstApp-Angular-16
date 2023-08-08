@@ -1,19 +1,31 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="d-flex justify-content-center">
-      <mat-checkbox>
+    <div
+      class="d-flex justify-content-center align-items-center hover"
+      (click)="editTask = !editTask" 
+    >
+      <mat-checkbox (click)="removeTask(task[0])">
         <div>
           <span class="text-white">
-            {{ task.taskName }}
+            {{ task[1].taskName }}
             <br />
-            <small class="text-secondary">{{ task.taskDescripiton }}</small>
           </span>
+          <h5 class="text-secondary text-purple">
+            {{ task[1].taskDescripiton }}
+          </h5>
         </div>
       </mat-checkbox>
-      <div class="ms-auto ">
-        <button class="mx-2">X</button>
+      <div class="ms-auto">
+        <small style="color: #a970ff">{{ task[1].taskDate | date }}</small>
+        <button class="mx-2" (click)="removeTask(task[0])">X</button>
         <button>edit</button>
       </div>
+    </div>
+    <div *ngIf="editTask">
+      <app-create-task
+        [dataTask]="task"
+        (openTask)="closeTask($event)"
+      ></app-create-task>
     </div>
   </div>
 </div>

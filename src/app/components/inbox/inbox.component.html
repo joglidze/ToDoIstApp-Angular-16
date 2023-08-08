@@ -1,4 +1,4 @@
-<div class="container w-100">
+<div class="container w-100 vh-100">
   <div class="row p-5 w-75 m-auto">
     <div class="text-white">
       <div>
@@ -10,8 +10,8 @@
     <div>
       <div>
         <div>
-          <div *ngFor="let tasks of taskArray" class="my-2">
-            <app-task [task]="tasks"  />
+          <div *ngFor="let tasks of taskArray | async" class="my-2">
+            <app-task [task]="tasks" />
           </div>
           <button
             class="task-button text-secondary"
