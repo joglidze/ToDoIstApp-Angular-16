@@ -10,7 +10,7 @@
     <div>
       <div>
         <div>
-          <div *ngFor="let tasks of taskArray | async" class="my-2">
+          <div *ngFor="let tasks of taskArray$ | async" class="my-2">
             <app-task [task]="tasks" />
           </div>
           <button

@@ -56,7 +56,9 @@ export class CreateTaskComponent implements OnInit {
     }
   }
   closeTask() {
+    this.openTask.emit(this.form.value);
     this.openTask.emit(this.taskBoolean);
+    
     console.log(this.dataTask);
   }
   constructor(
@@ -75,6 +77,7 @@ export class CreateTaskComponent implements OnInit {
         )
         .subscribe((res) => {
           console.log(res);
+          this.openTask.emit(this.form);
           this.closeTask();
         });
     } else {

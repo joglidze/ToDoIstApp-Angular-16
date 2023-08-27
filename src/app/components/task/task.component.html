@@ -1,9 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div
-      class="d-flex justify-content-center align-items-center hover"
-      (click)="editTask = !editTask" 
-    >
+    <div class="d-flex justify-content-center align-items-center hover">
       <mat-checkbox (click)="removeTask(task[0])">
         <div>
           <span class="text-white">
@@ -18,7 +15,7 @@
       <div class="ms-auto">
         <small style="color: #a970ff">{{ task[1].taskDate | date }}</small>
         <button class="mx-2" (click)="removeTask(task[0])">X</button>
-        <button>edit</button>
+        <button (click)="editTask = !editTask">edit</button>
       </div>
     </div>
     <div *ngIf="editTask">

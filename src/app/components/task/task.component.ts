@@ -4,7 +4,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HttpClient } from '@angular/common/http';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
 import { TaskService } from 'src/app/core/services/task.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateTaskComponent } from '../create-task/create-task.component';
@@ -29,34 +29,38 @@ export class TaskComponent {
   constructor(
     private taskService: TaskService,
     private localService: LocalstorageService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   removeTask(task: any) {
-    console.log(task);
-    this.taskService
-      .delete(`${this.localService.localUser()}/inbox/${task}.json/`)
-      .subscribe((res) => {
-        const currentUrl = this.router.url;
-        this.router
-          .navigateByUrl('/', { skipLocationChange: true })
-          .then(() => {
-            this.router.navigate([currentUrl]);
-          });
-      });
+    const url = this.activatedRoute.snapshot.url.join('');
+    if (url == 'inbox') {
+      this.taskService
+        .delete(`${this.localService.localUser()}/inbox/${task}.json/`)
+        .subscribe((res) => {
+          console.log(res);
+          this.refreshPage();
+        });
+    } else if (url == 'today') {
+      this.taskService
+        .delete(`${this.localService.localUser()}/today/${task}.json/`)
+        .subscribe((res) => {
+          console.log(res);
+          this.refreshPage();
+        });
+    }
   }
   closeTask(data: any) {
     this.taskTrigger = data;
-    console.log(data);
+
     this.refreshPage();
   }
 
-  refreshPage(){
+  refreshPage() {
     const currentUrl = this.router.url;
-    this.router
-      .navigateByUrl('/', { skipLocationChange: true })
-      .then(() => {
-        this.router.navigate([currentUrl]);
-      });
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 }
