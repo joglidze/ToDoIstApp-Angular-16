@@ -6,7 +6,9 @@
         <hr />
       </div>
     </div>
-
+    <div *ngFor="let tasks of todayTaskArray$ | async" class="my-2">
+      <app-task [task]="tasks" />
+    </div>
     <div>
       <div>
         <div>
