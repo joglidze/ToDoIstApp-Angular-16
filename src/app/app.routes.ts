@@ -33,6 +33,13 @@ export const routes: Routes = [
             (m) => m.TodaySectionComponent
           ),
       },
+      {
+        path: 'upcoming',
+        loadComponent: () =>
+          import('./components/upcoming/upcoming.component').then(
+            (m) => m.UpcomingComponent
+          ),
+      },
     ],
   },
   {
