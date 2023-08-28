@@ -76,8 +76,7 @@ export class CreateTaskComponent implements OnInit {
           this.form.value
         )
         .subscribe((res) => {
-          console.log(res);
-          this.openTask.emit(this.form);
+          
           this.closeTask();
         });
     } else {

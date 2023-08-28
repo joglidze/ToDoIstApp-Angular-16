@@ -20,6 +20,7 @@ export class TodaySectionComponent implements OnInit {
   date = new Date();
   closeTask(close: any) {
     this.taskBoolean = close;
+    this.getTodayTasks();
   }
   constructor(
     private taskService: TaskService,
