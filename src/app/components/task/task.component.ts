@@ -39,14 +39,14 @@ export class TaskComponent {
       this.taskService
         .delete(`${this.localService.localUser()}/inbox/${task}.json/`)
         .subscribe((res) => {
-          console.log(res);
+         
           this.refreshPage();
         });
     } else if (url == 'today') {
       this.taskService
         .delete(`${this.localService.localUser()}/today/${task}.json/`)
         .subscribe((res) => {
-          console.log(res);
+          
           this.refreshPage();
         });
     }
