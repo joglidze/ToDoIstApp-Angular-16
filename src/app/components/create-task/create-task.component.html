@@ -27,6 +27,7 @@
               >
               </mat-datepicker-toggle>
               <input
+                [disabled]="true"
                 class="bg-transparent text-white"
                 style="width: 70px"
                 matInput
@@ -36,7 +37,10 @@
                 formControlName="taskDate"
               />
 
-              <mat-datepicker #picker></mat-datepicker>
+              <mat-datepicker
+                #picker
+                [disabled]="route == 'today'"
+              ></mat-datepicker>
             </div>
 
             <div
@@ -70,7 +74,6 @@
                 type="submit"
                 style="background-color: #de4c4a"
                 class="btn p-2 text-white"
-                
               >
                 Add Task
               </button>

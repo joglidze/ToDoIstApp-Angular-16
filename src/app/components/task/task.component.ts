@@ -24,6 +24,7 @@ import { CreateTaskComponent } from '../create-task/create-task.component';
 })
 export class TaskComponent {
   @Input() task: any;
+  url = this.activatedRoute.snapshot.url.join('');
   editTask: boolean = false;
   taskTrigger: boolean = false;
   constructor(
@@ -34,19 +35,19 @@ export class TaskComponent {
   ) {}
 
   removeTask(task: any) {
-    const url = this.activatedRoute.snapshot.url.join('');
-    if (url == 'inbox') {
+    
+    if (this.url == 'inbox') {
       this.taskService
         .delete(`${this.localService.localUser()}/inbox/${task}.json/`)
         .subscribe((res) => {
          
           this.refreshPage();
         });
-    } else if (url == 'today') {
+    } else if (this.url == 'today') {
       this.taskService
         .delete(`${this.localService.localUser()}/today/${task}.json/`)
         .subscribe((res) => {
-          
+            
           this.refreshPage();
         });
     }

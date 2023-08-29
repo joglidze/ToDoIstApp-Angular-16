@@ -6,11 +6,14 @@ import { HttpClient } from '@angular/common/http';
 import TimeGrid from '@fullcalendar/timegrid';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import Lists from '@fullcalendar/list';
+import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import interactionPlugin from '@fullcalendar/interaction';
 import { TaskService } from 'src/app/core/services/task.service';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
-import { flatMap, map, mergeMap, toArray } from 'rxjs';
-import { C, cl } from '@fullcalendar/core/internal-common';
+import { map, mergeMap, toArray } from 'rxjs';
+import { Calendar } from '@fullcalendar/core';
+import { cl } from '@fullcalendar/core/internal-common';
+
 @Component({
   selector: 'app-upcoming',
   standalone: true,
@@ -23,10 +26,20 @@ export class UpcomingComponent {
   Events: any[] = [];
   calendarOptions: any = {
     plugins: [interactionPlugin, dayGridPlugin, TimeGrid, Lists],
+
     initialView: 'dayGridMonth',
-    events: [],
+    events: [
+      {
+        // this object will be "parsed" into an Event Object
+        title: 'The Title', // a property!
+        start: '2023-09-01', // a property!
+        end: '2023-09-05', // a property! ** see important note below about 'end' **
+      },
+    ],
+
+    eventColor: '#378006',
     headerToolbar: {
-      left: 'prev,next today',
+      left: 'prev next today',
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
     },
@@ -45,27 +58,29 @@ export class UpcomingComponent {
     alert('Clicked on date : ' + res.dateStr);
   }
   ngOnInit() {
-    this.taskService
-      .get(`${this.localService.localUser()}.json`)
-      .pipe(
-        mergeMap((res: any) => Object.values(res)),
-        map((tasks: any) => Object.values(tasks)),
-        mergeMap((taskArray: any) =>
-          taskArray.map((task: any) => ({
-            title: task.taskName,
-            date: task.taskDate,
-          }))
-        ),
-        toArray()
-      )
-      .subscribe((tasks: any) => {
-        tasks.map((task: any) => console.log(task.title));
-        this.calendarOptions.events = tasks.map((task: any) => ({
-          title: task.title,
-          date: task.date,
-        }));
+    // this.taskService
+    //   .get(`${this.localService.localUser()}.json`)
+    //   .pipe(
+    //     mergeMap((res: any) => Object.values(res)),
+    //     map((tasks: any) => Object.values(tasks)),
+    //     mergeMap((taskArray: any) =>
+    //       taskArray.map((task: any) => ({
+    //         title: task.taskDescripiton,
+    //         date: task.taskDate,
+    //       }))
+    //     ),
 
-        console.log(this.calendarOptions.events);
-      });
+    //     toArray()
+    //   )
+    //   .subscribe((tasks: any) => {
+    //     console.log(tasks);
+    //     tasks.map((task: any) => console.log(task.title));
+    //     this.calendarOptions.events = tasks.map((task: any) => ({
+    //       title: task.title,
+    //       date: task.date,
+    //     }));
+
+    //     console.log(this.calendarOptions.events);
+    //   });
   }
 }
