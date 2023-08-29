@@ -20,6 +20,7 @@ import {
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
 import { TaskService } from 'src/app/core/services/task.service';
 import { ActivatedRoute } from '@angular/router';
+import { cl } from '@fullcalendar/core/internal-common';
 @Component({
   selector: 'app-create-task',
   standalone: true,
@@ -38,6 +39,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CreateTaskComponent implements OnInit {
   events: string[] = [];
+  route = this.activatedRoute.snapshot.url.join('');
   form: FormGroup = new FormGroup({
     taskName: new FormControl('', Validators.required),
     taskDescripiton: new FormControl('', Validators.required),
@@ -54,11 +56,17 @@ export class CreateTaskComponent implements OnInit {
     if (this.dataTask) {
       this.form.patchValue(this.dataTask[1]);
     }
+
+    if (this.route == 'today') {
+      const currentDate = new Date();
+      this.form.get('taskDate')?.setValue(currentDate);
+    }
+    console.log(this.form.value);
   }
   closeTask() {
     this.openTask.emit(this.form.value);
     this.openTask.emit(this.taskBoolean);
-    
+
     console.log(this.dataTask);
   }
   constructor(
@@ -68,21 +76,25 @@ export class CreateTaskComponent implements OnInit {
   ) {}
 
   submit() {
-    const route = this.activatedRoute.snapshot.url.join('');
     if (this.dataTask) {
       this.taskService
         .put(
-          `${this.localService.localUser()}/${route}/${this.dataTask[0]}.json`,
+          `${this.localService.localUser()}/${this.route}/${
+            this.dataTask[0]
+          }.json`,
           this.form.value
         )
         .subscribe((res) => {
-          
           this.closeTask();
         });
     } else {
       this.taskService
-        .post(`${this.localService.localUser()}/${route}.json`, this.form.value)
+        .post(
+          `${this.localService.localUser()}/${this.route}.json`,
+          this.form.value
+        )
         .subscribe((res) => {
+          console.log('today');
           console.log(res);
           this.closeTask();
         });
