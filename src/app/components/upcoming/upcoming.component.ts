@@ -28,14 +28,7 @@ export class UpcomingComponent {
     plugins: [interactionPlugin, dayGridPlugin, TimeGrid, Lists],
 
     initialView: 'dayGridMonth',
-    events: [
-      {
-        // this object will be "parsed" into an Event Object
-        title: 'The Title', // a property!
-        start: '2023-09-01', // a property!
-        end: '2023-09-05', // a property! ** see important note below about 'end' **
-      },
-    ],
+    events: [],
 
     eventColor: '#378006',
     headerToolbar: {
@@ -58,29 +51,31 @@ export class UpcomingComponent {
     alert('Clicked on date : ' + res.dateStr);
   }
   ngOnInit() {
-    // this.taskService
-    //   .get(`${this.localService.localUser()}.json`)
-    //   .pipe(
-    //     mergeMap((res: any) => Object.values(res)),
-    //     map((tasks: any) => Object.values(tasks)),
-    //     mergeMap((taskArray: any) =>
-    //       taskArray.map((task: any) => ({
-    //         title: task.taskDescripiton,
-    //         date: task.taskDate,
-    //       }))
-    //     ),
+    this.taskService
+      .get(`${this.localService.localUser()}.json`)
+      .pipe(
+        mergeMap((res: any) => Object.values(res)),
+        map((tasks: any) => Object.values(tasks)),
+        mergeMap((taskArray: any) =>
+          taskArray.map((task: any) => ({
+            title: task.taskDescripiton,
+            taskStart: task.taskStart,
+            taskEnd: task.taskEnd,
+          }))
+        ),
 
-    //     toArray()
-    //   )
-    //   .subscribe((tasks: any) => {
-    //     console.log(tasks);
-    //     tasks.map((task: any) => console.log(task.title));
-    //     this.calendarOptions.events = tasks.map((task: any) => ({
-    //       title: task.title,
-    //       date: task.date,
-    //     }));
+        toArray()
+      )
+      .subscribe((tasks: any) => {
+        console.log(tasks);
+        tasks.map((task: any) => console.log(task.title));
+        this.calendarOptions.events = tasks.map((task: any) => ({
+          title: task.title, // a property!
+          start: task.taskStart, // a property!
+          end: task.taskEnd,
+        }));
 
-    //     console.log(this.calendarOptions.events);
-    //   });
+        console.log(this.calendarOptions.events);
+      });
   }
 }
