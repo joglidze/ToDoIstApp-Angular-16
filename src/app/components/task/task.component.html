@@ -13,7 +13,9 @@
         </div>
       </mat-checkbox>
       <div class="ms-auto">
-        <small style="color: #a970ff">{{ task[1].taskDate | date }}</small>
+        <small style="color: #a970ff"
+          >{{ task[1].taskStart | date }}~{{ task[1].taskEnd | date }}</small
+        >
         <button class="mx-2" (click)="removeTask(task[0])">X</button>
         <button (click)="editTask = !editTask">edit</button>
       </div>

@@ -43,7 +43,9 @@ export class CreateTaskComponent implements OnInit {
   form: FormGroup = new FormGroup({
     taskName: new FormControl('', Validators.required),
     taskDescripiton: new FormControl('', Validators.required),
-    taskDate: new FormControl('', Validators.required),
+
+    taskStart: new FormControl('', Validators.required),
+    taskEnd: new FormControl('', Validators.required),
     taskPriority: new FormControl('', Validators.required),
   });
   @Input() dataTask: any;
@@ -59,12 +61,12 @@ export class CreateTaskComponent implements OnInit {
 
     if (this.route == 'today') {
       const currentDate = new Date();
-      this.form.get('taskDate')?.setValue(currentDate);
+      this.form.get('taskStart')?.setValue(currentDate);
+      this.form.get('taskEnd')?.setValue(currentDate);
     }
     console.log(this.form.value);
   }
   closeTask() {
-    this.openTask.emit(this.form.value);
     this.openTask.emit(this.taskBoolean);
 
     console.log(this.dataTask);
@@ -85,6 +87,7 @@ export class CreateTaskComponent implements OnInit {
           this.form.value
         )
         .subscribe((res) => {
+          console.log('edit');
           this.closeTask();
         });
     } else {

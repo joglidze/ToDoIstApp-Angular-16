@@ -15,14 +15,7 @@ body {
 .error {
   border-color: red;
 }
-.ng-valid:not(form),
-.ng-valid.required {
-  border-left: 5px solid #240b36 !important; /* green */
-}
 
-.ng-invalid:not(form) {
-  border-left: 5px solid #a94442; /* red */
-}
 
 .bg-dark {
   background-color: #282828 !important;
