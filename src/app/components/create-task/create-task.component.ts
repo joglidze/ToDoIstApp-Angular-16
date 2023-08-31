@@ -21,9 +21,10 @@ import { LocalstorageService } from 'src/app/facade/localstorage.service';
 import { TaskService } from 'src/app/core/services/task.service';
 import { ActivatedRoute } from '@angular/router';
 import { cl } from '@fullcalendar/core/internal-common';
+
 @Component({
   selector: 'app-create-task',
-  standalone: true,
+
   imports: [
     CommonModule,
     MatDatepickerModule,
@@ -34,6 +35,7 @@ import { cl } from '@fullcalendar/core/internal-common';
     NgFor,
     MatFormFieldModule,
   ],
+  standalone: true,
   templateUrl: './create-task.component.html',
   styleUrls: ['./create-task.component.scss'],
 })
@@ -104,5 +106,19 @@ export class CreateTaskComponent implements OnInit {
     }
 
     console.log(this.localService.localUser);
+  }
+
+  createDate(start: any, end: any) {
+    const date: any = this.form.value.taskStart.toString();
+    const startDate =
+      date.slice(0, 15) +
+      ' ' +
+      start.value +
+      ':00 ' +
+      date.slice(25, date.length);
+
+    this.form.get('taskStart')?.setValue(new Date(startDate));
+
+    console.log(this.form.value);
   }
 }

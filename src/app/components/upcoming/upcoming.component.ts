@@ -28,7 +28,16 @@ export class UpcomingComponent {
     plugins: [interactionPlugin, dayGridPlugin, TimeGrid, Lists],
 
     initialView: 'dayGridMonth',
-    events: [],
+    events: [
+      {
+        title: 'The Title',
+        
+       
+        start: '2023-09-01' , // a property!
+        end: '2018-09-02',
+        
+      },
+    ],
 
     eventColor: '#378006',
     headerToolbar: {
@@ -41,6 +50,7 @@ export class UpcomingComponent {
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
+   
   };
   constructor(
     private httpClient: HttpClient,
@@ -63,7 +73,6 @@ export class UpcomingComponent {
             taskEnd: task.taskEnd,
           }))
         ),
-
         toArray()
       )
       .subscribe((tasks: any) => {
@@ -74,8 +83,8 @@ export class UpcomingComponent {
           start: task.taskStart, // a property!
           end: task.taskEnd,
         }));
-
         console.log(this.calendarOptions.events);
       });
+    console.log(this.calendarOptions.events)
   }
 }
