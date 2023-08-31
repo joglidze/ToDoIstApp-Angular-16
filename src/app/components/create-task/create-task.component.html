@@ -43,7 +43,47 @@
               matIconSuffix
               [for]="rangePicker"
             ></mat-datepicker-toggle>
-            <mat-date-range-picker #rangePicker> </mat-date-range-picker>
+            <mat-date-range-picker #rangePicker>
+              <mat-date-range-picker-actions class="d-flex">
+                <div class="w-100">
+                  <div class="d-flex">
+                    <div>
+                      <label for="startTime">
+                        <p>start Time</p>
+                        <input
+                          #start
+                          type="time"
+                          name="startTime"
+                          class="border border-black me-1"
+                        />
+                      </label>
+                    </div>
+                    <div>
+                      <label for="startTime">
+                        <p>end Time</p>
+                        <input
+                          #end
+                          class="border border-black"
+                          type="time"
+                          name="startTime"
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div class="mt-2 w-100 ms-auto">
+                    <button class="btn">Cancel</button>
+                    <button
+                      color="primary"
+                      class="btn btn-primary"
+                      matDateRangePickerApply
+                      (click)="createDate(start, end)"
+                    >
+                      Apply
+                    </button>
+                  </div>
+                </div>
+              </mat-date-range-picker-actions>
+            </mat-date-range-picker>
           </div>
 
           <div
