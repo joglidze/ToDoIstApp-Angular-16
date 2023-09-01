@@ -11,6 +11,7 @@ import { TaskService } from 'src/app/core/services/task.service';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
 import { TaskComponent } from '../task/task.component';
 import { BehaviorSubject, Observable, map } from 'rxjs';
+import { StoreService } from 'src/app/core/services/store.service';
 
 @Component({
   selector: 'app-inbox',
@@ -25,23 +26,18 @@ export class InboxComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
-    private localService: LocalstorageService
+    private localService: LocalstorageService,
+    private storeService: StoreService
   ) {}
   ngOnInit(): void {
-    this.getTasks()
+    this.taskArray$ = this.storeService.tasks$;
     if (this.taskTrigger || !this.taskTrigger) {
       console.log('work');
     }
   }
 
-  getTasks() {
-    this.taskArray$ = this.taskService
-      .get(`${this.localService.localUser()}/inbox.json`)
-      .pipe(map((res: any) => Object.entries(res)));
-  }
-
   closeTask(test: any) {
     this.taskTrigger = test;
-    this.getTasks();
+    this.taskArray$ = this.storeService.tasks$;
   }
 }

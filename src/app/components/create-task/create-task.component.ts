@@ -21,6 +21,7 @@ import { LocalstorageService } from 'src/app/facade/localstorage.service';
 import { TaskService } from 'src/app/core/services/task.service';
 import { ActivatedRoute } from '@angular/router';
 import { cl } from '@fullcalendar/core/internal-common';
+import { StoreService } from 'src/app/core/services/store.service';
 
 @Component({
   selector: 'app-create-task',
@@ -76,7 +77,8 @@ export class CreateTaskComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private localService: LocalstorageService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private store: StoreService
   ) {}
 
   submit() {
@@ -90,6 +92,7 @@ export class CreateTaskComponent implements OnInit {
         )
         .subscribe((res) => {
           console.log('edit');
+          this.store.tasks$.subscribe(console.log);
           this.closeTask();
         });
     } else {
@@ -99,8 +102,6 @@ export class CreateTaskComponent implements OnInit {
           this.form.value
         )
         .subscribe((res) => {
-          console.log('today');
-          console.log(res);
           this.closeTask();
         });
     }
