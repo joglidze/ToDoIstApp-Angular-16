@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateTaskComponent } from '../create-task/create-task.component';
+import { StoreService } from 'src/app/core/services/store.service';
 
 @Component({
   selector: 'app-task',
@@ -28,40 +29,16 @@ export class TaskComponent {
   editTask: boolean = false;
   taskTrigger: boolean = false;
   constructor(
-    private taskService: TaskService,
-    private localService: LocalstorageService,
-    private router: Router,
+  
+    private store: StoreService,
+    
     private activatedRoute: ActivatedRoute
   ) {}
 
   removeTask(task: any) {
-    
-    if (this.url == 'inbox') {
-      this.taskService
-        .delete(`${this.localService.localUser()}/inbox/${task}.json/`)
-        .subscribe((res) => {
-         
-          this.refreshPage();
-        });
-    } else if (this.url == 'today') {
-      this.taskService
-        .delete(`${this.localService.localUser()}/today/${task}.json/`)
-        .subscribe((res) => {
-            
-          this.refreshPage();
-        });
-    }
+    this.store.deleteTask(task, this.url);
   }
   closeTask(data: any) {
     this.taskTrigger = data;
-
-    this.refreshPage();
-  }
-
-  refreshPage() {
-    const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
-    });
   }
 }

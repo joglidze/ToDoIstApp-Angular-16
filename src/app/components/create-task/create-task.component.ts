@@ -67,12 +67,9 @@ export class CreateTaskComponent implements OnInit {
       this.form.get('taskStart')?.setValue(currentDate);
       this.form.get('taskEnd')?.setValue(currentDate);
     }
-    console.log(this.form.value);
   }
   closeTask() {
     this.openTask.emit(this.taskBoolean);
-
-    console.log(this.dataTask);
   }
   constructor(
     private taskService: TaskService,
@@ -83,30 +80,12 @@ export class CreateTaskComponent implements OnInit {
 
   submit() {
     if (this.dataTask) {
-      this.taskService
-        .put(
-          `${this.localService.localUser()}/${this.route}/${
-            this.dataTask[0]
-          }.json`,
-          this.form.value
-        )
-        .subscribe((res) => {
-          console.log('edit');
-          this.store.tasks$.subscribe(console.log);
-          this.closeTask();
-        });
+      this.store.putTask(this.dataTask, this.form.value, this.route);
+      this.closeTask();
     } else {
-      this.taskService
-        .post(
-          `${this.localService.localUser()}/${this.route}.json`,
-          this.form.value
-        )
-        .subscribe((res) => {
-          this.closeTask();
-        });
+      this.store.createTasks(this.form.value, this.route);
+      this.closeTask();
     }
-
-    console.log(this.localService.localUser);
   }
 
   createDate(start: any, end: any) {
