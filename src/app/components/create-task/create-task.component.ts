@@ -22,6 +22,7 @@ import { TaskService } from 'src/app/core/services/task.service';
 import { ActivatedRoute } from '@angular/router';
 import { cl } from '@fullcalendar/core/internal-common';
 import { StoreService } from 'src/app/core/services/store.service';
+import { Task } from 'src/app/core/interfaces/task';
 
 @Component({
   selector: 'app-create-task',
@@ -51,8 +52,8 @@ export class CreateTaskComponent implements OnInit {
     taskEnd: new FormControl('', Validators.required),
     taskPriority: new FormControl('', Validators.required),
   });
-  @Input() dataTask: any;
-  @Output() openTask: any = new EventEmitter<boolean>();
+  @Input() dataTask!: Task;
+  @Output() openTask = new EventEmitter<boolean>();
   taskBoolean: boolean = false;
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
@@ -69,6 +70,7 @@ export class CreateTaskComponent implements OnInit {
     }
   }
   closeTask() {
+   
     this.openTask.emit(this.taskBoolean);
   }
   constructor(
@@ -89,15 +91,23 @@ export class CreateTaskComponent implements OnInit {
   }
 
   createDate(start: any, end: any) {
-    const date: any = this.form.value.taskStart.toString();
+    const date = this.form.value.taskStart.toString();
+    const finishDate = this.form.value.taskEnd.toString();
     const startDate =
       date.slice(0, 15) +
       ' ' +
       start.value +
       ':00 ' +
       date.slice(25, date.length);
+    const endDate =
+      finishDate.slice(0, 15) +
+      ' ' +
+      end.value +
+      ':00 ' +
+      finishDate.slice(25, finishDate.length);
 
     this.form.get('taskStart')?.setValue(new Date(startDate));
+    this.form.get('taskEnd')?.setValue(new Date(endDate));
 
     console.log(this.form.value);
   }

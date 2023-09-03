@@ -31,11 +31,9 @@ export class UpcomingComponent {
     events: [
       {
         title: 'The Title',
-        
-       
-        start: '2023-09-01' , // a property!
+
+        start: '2023-09-01', // a property!
         end: '2018-09-02',
-        
       },
     ],
 
@@ -50,7 +48,6 @@ export class UpcomingComponent {
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
-   
   };
   constructor(
     private httpClient: HttpClient,
@@ -85,6 +82,6 @@ export class UpcomingComponent {
         }));
         console.log(this.calendarOptions.events);
       });
-    console.log(this.calendarOptions.events)
+    console.log(this.calendarOptions.events);
   }
 }
