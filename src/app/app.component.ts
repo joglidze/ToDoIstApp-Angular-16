@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { cl } from '@fullcalendar/core/internal-common';
 import { StoreService } from './core/services/store.service';
+import { TodayStoreService } from './core/services/today-store.service';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +14,10 @@ import { StoreService } from './core/services/store.service';
 })
 export class AppComponent implements OnInit {
   title = 'todoistApp';
-  constructor(private store:StoreService){}
+  constructor(private store:StoreService,private todayService:TodayStoreService){}
   ngOnInit(): void {
     console.log('test');
     this.store.getTasks()
+    this.todayService.getTodayTask()
   }
 }

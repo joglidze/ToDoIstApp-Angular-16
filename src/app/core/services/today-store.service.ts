@@ -1,51 +1,44 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, pipe, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { TaskService } from './task.service';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
-import { ActivatedRoute } from '@angular/router';
-import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StoreService {
-  private taskSubject$ = new BehaviorSubject([]);
+export class TodayStoreService {
+  private todayTask$ = new BehaviorSubject([]);
 
-  tasks$ = this.taskSubject$.asObservable();
+  todayArray$ = this.todayTask$.asObservable();
 
   constructor(
     private taskService: TaskService,
-    private localService: LocalstorageService,
-    private activatedRoute: ActivatedRoute
+    private localService: LocalstorageService
   ) {}
 
-  getTasks() {
+  getTodayTask() {
     this.taskService
-      .get(`${this.localService.localUser()}/inbox.json`)
+      .get(`${this.localService.localUser()}/today.json`)
       .pipe(
         map((res: any) => Object.entries(res)),
         tap((res) => console.log(res))
       )
-      .subscribe((res: any) => this.taskSubject$.next(res));
+      .subscribe((res: any) => this.todayTask$.next(res));
   }
 
   createTasks(form: any, route: string) {
-    const allTasks = this.taskSubject$.getValue();
+    const allTasks = this.todayTask$.getValue();
     this.taskService
       .post(`${this.localService.localUser()}/${route}.json`, form)
-      .pipe()
       .subscribe((res: any) => {
         const newAllTasks: any = [...allTasks, [res.name, form]];
 
-        this.taskSubject$.next(newAllTasks);
+        this.todayTask$.next(newAllTasks);
         console.log(newAllTasks);
       });
-
-    console.log(allTasks);
   }
-
   putTask(dataTask: any, form: any, route: any) {
-    let array: any = this.taskSubject$.getValue();
+    let array: any = this.todayTask$.getValue();
     const index = array
       .map((res: any) => res[0])
       .findIndex((res: any) => res == dataTask[0]);
@@ -61,7 +54,7 @@ export class StoreService {
   }
 
   deleteTask(id: string, url: any) {
-    const array = this.taskSubject$.getValue();
+    const array = this.todayTask$.getValue();
     const index = array.map((res) => res[0]).findIndex((res) => res == id);
 
     this.taskService

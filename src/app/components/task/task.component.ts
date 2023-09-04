@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateTaskComponent } from '../create-task/create-task.component';
 import { StoreService } from 'src/app/core/services/store.service';
+import { TodayStoreService } from 'src/app/core/services/today-store.service';
 
 @Component({
   selector: 'app-task',
@@ -27,16 +28,20 @@ export class TaskComponent {
   @Input() task: any;
   url = this.activatedRoute.snapshot.url.join('');
   editTask: boolean = false;
+
   taskTrigger: boolean = false;
   constructor(
-  
     private store: StoreService,
-    
+    private todayStoreService: TodayStoreService,
     private activatedRoute: ActivatedRoute
   ) {}
 
   removeTask(task: any) {
-    this.store.deleteTask(task, this.url);
+    if (this.url == 'inbox') {
+      this.store.deleteTask(task, this.url);
+    } else {
+      this.todayStoreService.deleteTask(task, this.url);
+    }
   }
   closeTask(data: any) {
     this.taskTrigger = data;
