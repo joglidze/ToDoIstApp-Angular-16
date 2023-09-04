@@ -8,7 +8,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import Lists from '@fullcalendar/list';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import interactionPlugin from '@fullcalendar/interaction';
-import { TaskService } from 'src/app/core/services/task.service';
+import { BaseService } from 'src/app/core/services/base.service';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
 import { map, mergeMap, toArray } from 'rxjs';
 import { Calendar } from '@fullcalendar/core';
@@ -51,15 +51,14 @@ export class UpcomingComponent {
   };
   constructor(
     private httpClient: HttpClient,
-    private taskService: TaskService,
+    private BaseService: BaseService,
     private localService: LocalstorageService
   ) {}
   onDateClick(res: any) {
     alert('Clicked on date : ' + res.dateStr);
   }
   ngOnInit() {
-    this.taskService
-      .get(`${this.localService.localUser()}.json`)
+    this.BaseService.get(`${this.localService.localUser()}.json`)
       .pipe(
         mergeMap((res: any) => Object.values(res)),
         map((tasks: any) => Object.values(tasks)),

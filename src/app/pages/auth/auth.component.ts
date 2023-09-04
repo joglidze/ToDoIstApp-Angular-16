@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RegisterComponent } from './register/register.component';
@@ -13,7 +13,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent {
-  constructor(private authService: AuthService) {}
+
+  constructor() {}
 
  
 }

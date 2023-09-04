@@ -17,10 +17,8 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { LocalstorageService } from 'src/app/facade/localstorage.service';
-import { TaskService } from 'src/app/core/services/task.service';
 import { ActivatedRoute } from '@angular/router';
-import { cl } from '@fullcalendar/core/internal-common';
+
 import { StoreService } from 'src/app/core/services/store.service';
 import { Task } from 'src/app/core/interfaces/task';
 import { TodayStoreService } from 'src/app/core/services/today-store.service';
@@ -74,10 +72,8 @@ export class CreateTaskComponent implements OnInit {
     this.openTask.emit(this.taskBoolean);
   }
   constructor(
-    private taskService: TaskService,
-    private localService: LocalstorageService,
     private activatedRoute: ActivatedRoute,
-    private todayStore :TodayStoreService,
+    private todayStore: TodayStoreService,
     private store: StoreService
   ) {}
 
@@ -86,17 +82,15 @@ export class CreateTaskComponent implements OnInit {
       this.store.putTask(this.dataTask, this.form.value, this.route);
       this.closeTask();
     } else if (this.dataTask && this.route == 'today') {
-      this.todayStore.putTask(this.dataTask, this.form.value, this.route)
+      this.todayStore.putTask(this.dataTask, this.form.value, this.route);
       this.closeTask();
-    }else if(!this.dataTask && this.route=='inbox'){
+    } else if (!this.dataTask && this.route == 'inbox') {
       this.store.createTasks(this.form.value, this.route);
       this.closeTask();
-    }else{
+    } else {
       this.todayStore.createTasks(this.form.value, this.route);
       this.closeTask();
     }
-
-    
   }
 
   createDate(start: any, end: any) {

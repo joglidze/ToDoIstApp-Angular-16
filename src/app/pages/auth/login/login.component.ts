@@ -48,7 +48,7 @@ export class LoginComponent {
       .subscribe(
         (res) => {
           console.log(res);
-          this.router.navigateByUrl('app');
+          this.router.navigateByUrl('app/inbox');
           this.form.reset();
         },
         (error) => {
@@ -60,6 +60,5 @@ export class LoginComponent {
           console.log(error.error.error);
         }
       );
-    
   }
 }
