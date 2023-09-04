@@ -6,6 +6,7 @@ import { TaskService } from 'src/app/core/services/task.service';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
 import { TaskComponent } from '../task/task.component';
 import { ActivatedRoute } from '@angular/router';
+import { TodayStoreService } from 'src/app/core/services/today-store.service';
 
 @Component({
   selector: 'app-today-section',
@@ -24,15 +25,14 @@ export class TodaySectionComponent implements OnInit {
   }
   constructor(
     private taskService: TaskService,
-    private localService: LocalstorageService
+    private localService: LocalstorageService,
+    private todayStore: TodayStoreService
   ) {}
   ngOnInit(): void {
     this.getTodayTasks();
   }
 
   getTodayTasks() {
-    this.todayTaskArray$ = this.taskService
-      .get(`${this.localService.localUser()}/today.json`)
-      .pipe(map((res: any) => Object.entries(res)));
+    this.todayTaskArray$ = this.todayStore.todayArray$
   }
 }
