@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, tap } from 'rxjs';
-import { TaskService } from './task.service';
+import { BehaviorSubject, map, share, shareReplay, tap } from 'rxjs';
+import { BaseService } from './base.service';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
 
 @Injectable({
@@ -12,15 +12,15 @@ export class TodayStoreService {
   todayArray$ = this.todayTask$.asObservable();
 
   constructor(
-    private taskService: TaskService,
+    private BaseService: BaseService,
     private localService: LocalstorageService
   ) {}
 
   getTodayTask() {
-    this.taskService
-      .get(`${this.localService.localUser()}/today.json`)
+    this.BaseService.get(`${this.localService.localUser()}/today.json`)
       .pipe(
         map((res: any) => Object.entries(res)),
+
         tap((res) => console.log(res))
       )
       .subscribe((res: any) => this.todayTask$.next(res));
@@ -28,14 +28,15 @@ export class TodayStoreService {
 
   createTasks(form: any, route: string) {
     const allTasks = this.todayTask$.getValue();
-    this.taskService
-      .post(`${this.localService.localUser()}/${route}.json`, form)
-      .subscribe((res: any) => {
-        const newAllTasks: any = [...allTasks, [res.name, form]];
+    this.BaseService.post(
+      `${this.localService.localUser()}/${route}.json`,
+      form
+    ).subscribe((res: any) => {
+      const newAllTasks: any = [...allTasks, [res.name, form]];
 
-        this.todayTask$.next(newAllTasks);
-        console.log(newAllTasks);
-      });
+      this.todayTask$.next(newAllTasks);
+      console.log(newAllTasks);
+    });
   }
   putTask(dataTask: any, form: any, route: any) {
     let array: any = this.todayTask$.getValue();
@@ -43,24 +44,22 @@ export class TodayStoreService {
       .map((res: any) => res[0])
       .findIndex((res: any) => res == dataTask[0]);
 
-    this.taskService
-      .put(
-        `${this.localService.localUser()}/${route}/${dataTask[0]}.json`,
-        form
-      )
-      .subscribe((res) => {
-        array[index] = [dataTask[0], form];
-      });
+    this.BaseService.put(
+      `${this.localService.localUser()}/${route}/${dataTask[0]}.json`,
+      form
+    ).subscribe((res) => {
+      array[index] = [dataTask[0], form];
+    });
   }
 
   deleteTask(id: string, url: any) {
     const array = this.todayTask$.getValue();
     const index = array.map((res) => res[0]).findIndex((res) => res == id);
 
-    this.taskService
-      .delete(`${this.localService.localUser()}/${url}/${id}.json/`)
-      .subscribe((res) => {
-        array.splice(index, 1);
-      });
+    this.BaseService.delete(
+      `${this.localService.localUser()}/${url}/${id}.json/`
+    ).subscribe((res) => {
+      array.splice(index, 1);
+    });
   }
 }

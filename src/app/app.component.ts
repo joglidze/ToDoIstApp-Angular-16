@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   title = 'todoistApp';
   constructor(private store:StoreService,private todayService:TodayStoreService){}
   ngOnInit(): void {
-    console.log('test');
+    
     this.store.getTasks()
     this.todayService.getTodayTask()
   }

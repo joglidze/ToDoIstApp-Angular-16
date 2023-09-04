@@ -40,10 +40,12 @@ body {
   background-color: transparent;
 }
 
-
-
 .mat-datepicker-actions {
   display: flex;
   justify-content: flex-start !important;
-  
+}
+
+::placeholder {
+  color: white !important;
+  opacity: 1;
 }

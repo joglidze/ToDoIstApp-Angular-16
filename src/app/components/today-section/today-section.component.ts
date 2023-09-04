@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateTaskComponent } from '../create-task/create-task.component';
 import { Observable, map } from 'rxjs';
-import { TaskService } from 'src/app/core/services/task.service';
+import { BaseService } from 'src/app/core/services/base.service';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
 import { TaskComponent } from '../task/task.component';
 import { ActivatedRoute } from '@angular/router';
@@ -24,7 +24,7 @@ export class TodaySectionComponent implements OnInit {
     this.getTodayTasks();
   }
   constructor(
-    private taskService: TaskService,
+    private BaseService: BaseService,
     private localService: LocalstorageService,
     private todayStore: TodayStoreService
   ) {}
@@ -33,6 +33,6 @@ export class TodaySectionComponent implements OnInit {
   }
 
   getTodayTasks() {
-    this.todayTaskArray$ = this.todayStore.todayArray$
+    this.todayTaskArray$ = this.todayStore.todayArray$;
   }
 }
