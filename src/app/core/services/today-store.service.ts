@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, share, shareReplay, tap } from 'rxjs';
+import { BehaviorSubject, map,  tap } from 'rxjs';
 import { BaseService } from './base.service';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
 

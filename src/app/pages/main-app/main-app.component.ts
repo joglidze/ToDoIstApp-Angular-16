@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { HeaderComponent } from '../../components/header/header.component';
