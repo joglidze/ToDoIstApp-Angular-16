@@ -1,0 +1,35 @@
+<div class="w-100 vh-100">
+  <div class="row p-5 w-75 m-auto">
+    <div class="text-white">
+      <div>
+        <h1>{{ route }}</h1>
+        <hr />
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <div>
+          <div *ngFor="let tasks of projectTasks$ | async" class="my-2">
+            <app-task [task]="tasks" />
+          </div>
+          <button
+            class="task-button text-secondary"
+            *ngIf="!taskTrigger"
+            (click)="taskTrigger = !taskTrigger"
+          >
+            <i class="fa-regular fa-plus p-1" style="color: #de4c4a"></i>
+            Add task
+          </button>
+          <div *ngIf="taskTrigger">
+            <app-create-task (openTask)="closeTask($event)"></app-create-task>
+          </div>
+        </div>
+        <div
+          class="d-grid justify-content-center text-center text-white"
+          *ngIf="!taskTrigger"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>

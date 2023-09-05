@@ -37,6 +37,13 @@ export const routes: Routes = [
             (m) => m.UpcomingComponent
           ),
       },
+      {
+        path: 'project/:projectName',
+        loadComponent: () =>
+          import('./components/project-page/project-page.component').then(
+            (m) => m.ProjectPageComponent
+          ),
+      },
     ],
   },
   {
