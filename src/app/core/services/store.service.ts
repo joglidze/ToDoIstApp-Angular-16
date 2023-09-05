@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, pipe, shareReplay, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { BaseService } from './base.service';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
-import { ActivatedRoute } from '@angular/router';
-import { FormGroup } from '@angular/forms';
+
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +15,7 @@ export class StoreService {
   constructor(
     private BaseService: BaseService,
     private localService: LocalstorageService,
-    private activatedRoute: ActivatedRoute
+    
   ) {}
 
   getTasks() {

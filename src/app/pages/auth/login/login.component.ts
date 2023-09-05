@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { tap } from 'rxjs';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { cl } from '@fullcalendar/core/internal-common';
+
 import { StoreService } from './core/services/store.service';
 import { TodayStoreService } from './core/services/today-store.service';
 

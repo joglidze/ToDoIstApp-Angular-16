@@ -4,9 +4,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavDrawerComponent } from './nav-drawer/nav-drawer.component';
 import { RouterOutlet } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { cl } from '@fullcalendar/core/internal-common';
-import { ObserversModule } from '@angular/cdk/observers';
-import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-sidenav',
   standalone: true,

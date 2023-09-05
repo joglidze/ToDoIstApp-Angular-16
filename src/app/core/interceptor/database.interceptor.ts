@@ -1,13 +1,10 @@
-import { Injectable } from '@angular/core';
+
 import {
   HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpParams,
+
   HttpHandlerFn,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+
 
 // @Injectable()
 // export class DatabaseInterceptor implements HttpInterceptor {

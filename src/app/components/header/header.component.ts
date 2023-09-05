@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
-import { single } from 'rxjs';
+
 
 @Component({
   selector: 'app-header',

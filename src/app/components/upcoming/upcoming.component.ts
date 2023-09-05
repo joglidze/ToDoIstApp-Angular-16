@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { HttpClient } from '@angular/common/http';
+
 import TimeGrid from '@fullcalendar/timegrid';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import Lists from '@fullcalendar/list';
-import bootstrap5Plugin from '@fullcalendar/bootstrap5';
+
 import interactionPlugin from '@fullcalendar/interaction';
 import { BaseService } from 'src/app/core/services/base.service';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
 import { map, mergeMap, toArray } from 'rxjs';
-import { Calendar } from '@fullcalendar/core';
-import { cl } from '@fullcalendar/core/internal-common';
+
+
 
 @Component({
   selector: 'app-upcoming',
@@ -50,7 +50,7 @@ export class UpcomingComponent {
     dayMaxEvents: true,
   };
   constructor(
-    private httpClient: HttpClient,
+   
     private BaseService: BaseService,
     private localService: LocalstorageService
   ) {}

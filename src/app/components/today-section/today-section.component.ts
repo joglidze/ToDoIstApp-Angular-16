@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateTaskComponent } from '../create-task/create-task.component';
-import { Observable, map } from 'rxjs';
-import { BaseService } from 'src/app/core/services/base.service';
-import { LocalstorageService } from 'src/app/facade/localstorage.service';
+import { Observable} from 'rxjs';
+
 import { TaskComponent } from '../task/task.component';
-import { ActivatedRoute } from '@angular/router';
+
 import { TodayStoreService } from 'src/app/core/services/today-store.service';
 
 @Component({
@@ -24,8 +23,7 @@ export class TodaySectionComponent implements OnInit {
     this.getTodayTasks();
   }
   constructor(
-    private BaseService: BaseService,
-    private localService: LocalstorageService,
+    
     private todayStore: TodayStoreService
   ) {}
   ngOnInit(): void {

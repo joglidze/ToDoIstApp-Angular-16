@@ -1,10 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { HttpClient } from '@angular/common/http';
-import { LocalstorageService } from 'src/app/facade/localstorage.service';
-import { BaseService } from 'src/app/core/services/base.service';
-import { ActivatedRoute, Router } from '@angular/router';
+
+import { ActivatedRoute} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateTaskComponent } from '../create-task/create-task.component';
