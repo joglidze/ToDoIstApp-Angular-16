@@ -64,19 +64,25 @@
       class="list-group list-group-flush mx-3 mt-4"
       *ngFor="let projectName of projectNamesArray$ | async"
     >
-      <a
-        class="list-group-item list-group-item-action py-2 ripple bg-transparent text-white"
-        aria-current="true"
-        [routerLink]="['project', projectName]"
-      >
-        <span>{{ projectName }}</span>
-      </a>
-      <button
-        class="btn btn-danger"
-        (click)="deleteProject(projectName[0], projectName)"
-      >
-        delete
-      </button>
+      <div class="d-flex">
+        <div>
+          <a
+            class="list-group-item list-group-item-action py-2 ripple bg-transparent text-white"
+            aria-current="true"
+            [routerLink]="['project/', projectName]"
+          >
+            <span>{{ projectName }}</span>
+          </a>
+        </div>
+        <div>
+          <button
+            class="btn btn-danger me-auto"
+            (click)="deleteProject(projectName[0], projectName)"
+          >
+            X
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

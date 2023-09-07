@@ -2,7 +2,10 @@
   <div class="row p-5 w-75 m-auto">
     <div class="text-white">
       <div>
-        <h1>Today <span class="text-secondary fs-6">{{date | date}}</span> </h1>
+        <h1>
+          Today
+          <span class="text-secondary fs-6">{{ date | date }}</span>
+        </h1>
         <hr />
       </div>
     </div>
@@ -24,7 +27,10 @@
             <app-create-task (openTask)="closeTask($event)"></app-create-task>
           </div>
         </div>
-        <div class="d-grid justify-content-center text-center text-white" *ngIf="!taskBoolean">
+        <div
+          class="d-grid justify-content-center text-center text-white"
+          *ngIf="!taskBoolean"
+        >
           <div>
             <img
               src="https://todoist.b-cdn.net/assets/images/eca835cc5e863b41cc2fe9f480b36fae.png"

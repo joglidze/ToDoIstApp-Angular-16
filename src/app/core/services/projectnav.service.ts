@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { BaseService } from './base.service';
 import { T } from '@fullcalendar/core/internal-common';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
@@ -20,11 +20,19 @@ export class ProjectNavService {
 
     this.baseService
       .post(`${localSerivce}/${projectName}.json`, load)
-      .subscribe((res) => {});
+      .subscribe((res) => {
+        const newTasks: any = [...allNavTask, [projectName]];
+       
+        
+        this.projectSubject$.next(newTasks);
+      });
   }
 
   getProjects() {
-    return this.baseService.get(`${this.localService.localUser()}.json`);
+    return this.baseService
+      .get(`${this.localService.localUser()}.json`)
+      .pipe(map((res: any) => Object.keys(res)))
+      .subscribe((res: any) => this.projectSubject$.next(res));
   }
   deleteTask(id: string, name: any) {
     const array = this.projectSubject$.getValue();
@@ -34,6 +42,7 @@ export class ProjectNavService {
       .delete(`${this.localService.localUser()}/${name}.json/`)
       .subscribe((res) => {
         array.splice(index, 1);
+        this.projectSubject$.next(array);
       });
   }
 }

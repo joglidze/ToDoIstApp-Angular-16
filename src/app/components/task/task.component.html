@@ -13,8 +13,11 @@
         </div>
       </mat-checkbox>
       <div class="ms-auto">
-        <small style="color: #a970ff"
+        <small style="color: #a970ff" *ngIf="task[1].taskStart.length > 20"
           >{{ task[1].taskStart | date }}~{{ task[1].taskEnd | date }}</small
+        >
+        <small style="color: #a970ff" *ngIf="task[1].taskStart.length < 20"
+          >Start Date ~ End Date</small
         >
         <button class="mx-2" (click)="removeTask(task[0])">X</button>
         <button (click)="editTask = !editTask">edit</button>
