@@ -11,7 +11,9 @@
       <div>
         <div>
           <div *ngFor="let tasks of projectTasks$ | async" class="my-2">
-            <app-task [task]="tasks" />
+            <div *ngIf="tasks">
+              <app-task [task]="tasks" />
+            </div>
           </div>
           <button
             class="task-button text-secondary"

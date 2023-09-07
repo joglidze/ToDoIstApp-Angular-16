@@ -86,8 +86,8 @@ export class CreateTaskComponent implements OnInit {
     } else if (this.dataTask && this.route == 'today') {
       this.todayStore.putTask(this.dataTask, this.form.value, this.route);
       this.closeTask();
-    } else if (!this.dataTask && this.route == 'inbox') {
-      this.store.createTasks(this.form.value, this.route);
+    } else if (!this.dataTask && this.route == 'today') {
+      this.todayStore.createTasks(this.form.value, this.route);
       this.closeTask();
     } else if (!this.dataTask && this.route == 'inbox') {
       this.todayStore.createTasks(this.form.value, this.route);

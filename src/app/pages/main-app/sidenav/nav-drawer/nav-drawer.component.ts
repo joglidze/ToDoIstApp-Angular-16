@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProjectNavService } from 'src/app/core/services/projectnav.service';
 import { LocalstorageService } from 'src/app/facade/localstorage.service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, timeInterval } from 'rxjs';
 @Component({
   selector: 'app-nav-drawer',
   standalone: true,
@@ -14,12 +14,13 @@ import { Observable, map } from 'rxjs';
 })
 export class NavDrawerComponent implements OnInit {
   panelOpenState!: boolean;
-  projectNamesArray$?: Observable<string[]>;
+  projectNamesArray$?: Observable<string[]> | undefined;
 
   constructor(
     private projectService: ProjectNavService,
     private localService: LocalstorageService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.getProject();
@@ -37,20 +38,14 @@ export class NavDrawerComponent implements OnInit {
       projectName.value,
       task
     );
-    this.getProject()
   }
 
   getProject() {
-    this.projectNamesArray$ = this.projectService
-      .getProjects()
-      .pipe(
-        map((res: any) =>
-          Object.keys(res).filter((res) => res !== 'today' && res !== 'inbox')
-        )
-      );
+    this.projectService.getProjects();
+    this.projectNamesArray$ = this.projectService.projectArray$;
   }
   deleteProject(id: string, projectName: string) {
     this.projectService.deleteTask(id, projectName);
-    this.getProject()
+    this.router.navigateByUrl('/app/inbox');
   }
 }

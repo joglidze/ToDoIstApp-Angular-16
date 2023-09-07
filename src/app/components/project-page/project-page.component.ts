@@ -19,7 +19,10 @@ export class ProjectPageComponent implements OnInit {
   projectTasks$: Observable<any> | undefined;
   ngOnInit(): void {
     this.getProjectTasks();
-    console.log(this.route);
+    this.activatedRoute.url.subscribe((segments) => {
+      this.route = segments[1] ? segments[1].path : '';
+      this.getProjectTasks();
+    });
   }
   constructor(
     private projectTaskService: ProjectTasksService,
@@ -32,11 +35,10 @@ export class ProjectPageComponent implements OnInit {
 
   getProjectTasks() {
     this.projectTaskService.getProjectTasks(this.route);
-
     this.projectTasks$ = this.projectTaskService.mainProjectArray$;
   }
 
-  deleteProjectTask(id: string, ) {
+  deleteProjectTask(id: string) {
     this.projectTaskService.deleteTask(id, this.route);
   }
 }
